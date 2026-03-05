@@ -84,7 +84,7 @@ export default function OrdersPage() {
                       <TableCell>{order.phoneNumber}</TableCell>
                       <TableCell className="max-w-xs truncate">{order.address}</TableCell>
                       <TableCell>{order.size}</TableCell>
-                      <TableCell className="max-w-xs truncate">{order.productId}</TableCell>
+                      <TableCell className="max-w-xs">{order.productId}</TableCell>
                       <TableCell className="font-bold">{order.totalAmount} BDT</TableCell>
                       <TableCell>{new Date(order.createdAt!).toLocaleDateString()}</TableCell>
                     </TableRow>

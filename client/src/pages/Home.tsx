@@ -32,8 +32,12 @@ const FLAGSHIP_ITEM_BN: CartItem = {
 
 export type Language = "bn" | "en";
 
-export default function Home() {
-  const [lang, setLang] = useState<Language>("bn");
+export interface HomeProps {
+  lang: Language;
+  setLang: (lang: Language) => void;
+}
+
+export default function Home({ lang, setLang }: HomeProps) {
   const [heroSize, setHeroSize] = useState("L");
   const [cart, setCart] = useState<CartItem[]>([{ ...(lang === 'bn' ? FLAGSHIP_ITEM_BN : FLAGSHIP_ITEM_EN), size: "L" }]);
   const { toast } = useToast();

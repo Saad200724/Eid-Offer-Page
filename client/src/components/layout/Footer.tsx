@@ -23,17 +23,14 @@ export function Footer({ lang }: FooterProps) {
           </div>
           
           <nav className="flex flex-wrap justify-center gap-6 text-sm font-medium text-white/70">
-            <a href="#" className="hover:text-white transition-colors">
+            <a href="/terms" className="hover:text-white transition-colors">
               {lang === "bn" ? "শর্তাবলী" : "Terms & Conditions"}
             </a>
-            <a href="#" className="hover:text-white transition-colors">
+            <a href="/privacy" className="hover:text-white transition-colors">
               {lang === "bn" ? "গোপনীয়তা নীতি" : "Privacy Policy"}
             </a>
-            <a href="#" className="hover:text-white transition-colors">
+            <a href="/contact" className="hover:text-white transition-colors">
               {lang === "bn" ? "যোগাযোগ" : "Contact Support"}
-            </a>
-            <a href="#" className="hover:text-white transition-colors">
-              {lang === "bn" ? "রিটার্ন পলিসি" : "Return Policy"}
             </a>
           </nav>
         </div>
@@ -52,7 +49,7 @@ export function Footer({ lang }: FooterProps) {
             <span className="text-xs text-white/60 tracking-wider uppercase font-medium group-hover:text-white/80 transition-colors">
               {lang === "bn" ? "যাচাইকৃত এবং পাওয়ার্ড বাই" : "Verified and Powered by"}
             </span>
-            <span className="font-display font-bold text-[hsl(var(--secondary))] gold-glow tracking-wide text-sm">
+            <span className="font-display font-bold text-[hsl(var(--secondary))] tracking-wide text-sm">
               ZnForge
             </span>
           </a>

@@ -27,7 +27,7 @@ const content = {
     title: "Finalize Your Order",
     subtitle: "Fast, secure checkout. Pay when you receive it.",
     successTitle: "Order Confirmed!",
-    successMsg: "Thank you for choosing TRIQZ x RIZQAR. We will contact you shortly to verify delivery details.",
+    successMsg: "Thank you for choosing TRIQZ x RIZQAR. We will contact you shortly to verify delivery details. Call us at 01760-307928 or 01973-421085 if we don't call you back within 6 hours for confirmation.",
     codInfo: "Prepare Cash on Delivery",
     shippingTitle: "Shipping Information",
     fullName: "Full Name",
@@ -58,7 +58,7 @@ const content = {
     title: "আপনার অর্ডার সম্পন্ন করুন",
     subtitle: "দ্রুত এবং নিরাপদ চেকআউট। হাতে পাওয়ার পর মূল্য পরিশোধ করুন।",
     successTitle: "অর্ডার নিশ্চিত করা হয়েছে!",
-    successMsg: "TRIQZ x RIZQAR বেছে নেওয়ার জন্য আপনাকে ধন্যবাদ। আমরা শীঘ্রই ডেলিভারি তথ্য যাচাই করতে আপনার সাথে যোগাযোগ করব।",
+    successMsg: "TRIQZ x RIZQAR বেছে নেওয়ার জন্য আপনাকে ধন্যবাদ। আমরা শীঘ্রই ডেলিভারি তথ্য যাচাই করতে আপনার সাথে যোগাযোগ করব। যদি আমরা ৬ ঘণ্টার মধ্যে কল না করি, তবে নিশ্চিতকরণের জন্য আমাদের এই নম্বরে কল করুন: 01760-307928 অথবা 01973-421085।",
     codInfo: "ক্যাশ অন ডেলিভারি প্রস্তুত রাখুন",
     shippingTitle: "শিপিং তথ্য",
     fullName: "সম্পূর্ণ নাম",
@@ -260,7 +260,13 @@ export function CheckoutForm({ lang, cart, heroSize, onRemoveItem }: CheckoutFor
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
-                    <label className="block text-sm font-semibold text-foreground mb-2">{t.sizeLabel}</label>
+                    <label className="block text-sm font-semibold text-foreground mb-2">
+                      {lang === "bn" ? (
+                        <>যোগাযোগ করুন: 01760-307928( Sahol ), 01973-421085 (Sahol)</>
+                      ) : (
+                        <>Contact: 01760-307928( Sahol ), 01973-421085 (Sahol)</>
+                      )}
+                    </label>
                     <select
                       {...register("size")}
                       className="w-full px-5 py-4 rounded-xl bg-white border-2 border-border text-foreground focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all text-lg font-semibold appearance-none cursor-pointer"

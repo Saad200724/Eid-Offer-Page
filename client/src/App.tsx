@@ -6,12 +6,29 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "./pages/Home";
 import OrdersPage from "./pages/OrdersPage";
+import TermsPage from "./pages/legal/Terms";
+import PrivacyPage from "./pages/legal/Privacy";
+import ContactPage from "./pages/legal/Contact";
+import { useState } from "react";
+import { Language } from "./pages/Home";
 
 function Router() {
+  const [lang, setLang] = useState<Language>("bn");
   return (
     <Switch>
-      <Route path="/" component={Home} />
+      <Route path="/">
+        <Home lang={lang} setLang={setLang} />
+      </Route>
       <Route path="/order" component={OrdersPage} />
+      <Route path="/terms">
+        <TermsPage lang={lang} />
+      </Route>
+      <Route path="/privacy">
+        <PrivacyPage lang={lang} />
+      </Route>
+      <Route path="/contact">
+        <ContactPage lang={lang} />
+      </Route>
       <Route component={NotFound} />
     </Switch>
   );
