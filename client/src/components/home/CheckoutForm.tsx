@@ -165,7 +165,7 @@ export function CheckoutForm({ lang, cart, heroSize, onRemoveItem }: CheckoutFor
         address: data.address,
         size: data.size,
         totalAmount: grandTotal,
-        productId: cart.map(item => `${item.id}(${item.size})`).join(", "),
+        productId: cart.map(item => `${item.name}(${item.size})`).join(", "),
       },
       {
         onSuccess: () => {
