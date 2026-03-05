@@ -60,7 +60,7 @@ export const MOCK_PRODUCTS: Product[] = [
   { id: "p17", name: "Arabic Pattern Tee", price: 420, image: img17, description: "Intricate Arabic calligraphy artwork." },
   { id: "p18", name: "Just Do It Arabic", price: 420, image: img18, description: "Classic slogan with a local twist." },
   { id: "p19", name: "Crescent Moon Sabr", price: 420, image: img19, description: "Beautiful lunar design with spiritual text." },
-  { id: "p20", name: "Israa Trio Tee", price: 420, image: img20, description: "Multi-color spiritual collection." },
+  { id: "p20", name: "Isra & Patience (3 Pieces)", price: 1200, image: img20, description: "Exclusive 3-piece set featuring premium calligraphy designs." },
 ];
 
 export function CrossSell({ lang, onAdd }: CrossSellProps) {
@@ -105,7 +105,7 @@ export function CrossSell({ lang, onAdd }: CrossSellProps) {
                 
                 <div className="mt-auto flex flex-col gap-1 mb-4">
                   <span className="text-xs text-muted-foreground line-through decoration-destructive/50">
-                    ~500 {lang === "bn" ? "টাকা" : "BDT"}~
+                    {product.id === "p20" ? "1500" : "500"} {lang === "bn" ? "টাকা" : "BDT"}
                   </span>
                   <span className="font-display font-bold text-primary text-lg">
                     {product.price} {lang === "bn" ? "টাকা" : "BDT"}
@@ -156,7 +156,9 @@ export function CrossSell({ lang, onAdd }: CrossSellProps) {
                   <h2 className="text-3xl font-display font-bold text-foreground mb-2">{selectedProduct.name}</h2>
                   <div className="flex items-center gap-4">
                     <span className="text-3xl font-display font-bold text-primary">{selectedProduct.price} {lang === "bn" ? "টাকা" : "BDT"}</span>
-                    <span className="text-xl text-muted-foreground line-through decoration-destructive/40">~500~</span>
+                    <span className="text-xl text-muted-foreground line-through decoration-destructive/40">
+                      {selectedProduct.id === "p20" ? "1500" : "500"}
+                    </span>
                   </div>
                 </div>
 
