@@ -207,9 +207,16 @@ export function CheckoutForm({ lang, cart, heroSize, onRemoveItem }: CheckoutFor
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           <div className="lg:col-span-7 xl:col-span-8 order-2 lg:order-1">
             <form onSubmit={handleSubmit(onSubmit)} className="glass-panel rounded-3xl p-6 sm:p-8 md:p-10 relative z-10">
-              <h3 className="text-xl font-bold text-foreground border-b pb-4 mb-6 flex items-center gap-2">
+              <h3 className="text-xl font-bold text-foreground border-b pb-4 mb-2 flex items-center gap-2">
                 <User className="w-5 h-5 text-primary" /> {t.shippingTitle}
               </h3>
+              <p className="text-sm font-semibold text-primary mb-6">
+                {lang === "bn" ? (
+                  <>যোগাযোগ করুন: 01760-307928( Sahol ), 01973-421085 (Sahol)</>
+                ) : (
+                  <>Contact: 01760-307928( Sahol ), 01973-421085 (Sahol)</>
+                )}
+              </p>
               
               <div className="space-y-6">
                 <div>
@@ -259,28 +266,6 @@ export function CheckoutForm({ lang, cart, heroSize, onRemoveItem }: CheckoutFor
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-sm font-semibold text-foreground mb-2">
-                      {lang === "bn" ? (
-                        <>যোগাযোগ করুন: 01760-307928( Sahol ), 01973-421085 (Sahol)</>
-                      ) : (
-                        <>Contact: 01760-307928( Sahol ), 01973-421085 (Sahol)</>
-                      )}
-                    </label>
-                    <select
-                      {...register("size")}
-                      className="w-full px-5 py-4 rounded-xl bg-white border-2 border-border text-foreground focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all text-lg font-semibold appearance-none cursor-pointer"
-                      style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23013220'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`, backgroundPosition: `right 1.25rem center`, backgroundRepeat: `no-repeat`, backgroundSize: `1.5em 1.5em` }}
-                    >
-                      <option value="">{t.sizeSelect}</option>
-                      <option value="M">Medium (M)</option>
-                      <option value="L">Large (L)</option>
-                      <option value="XL">Extra Large (XL)</option>
-                      <option value="XXL">Double XL (XXL)</option>
-                    </select>
-                    {errors.size && <p className="mt-2 text-sm text-destructive">{errors.size.message}</p>}
-                  </div>
-
                   <div>
                     <label className="block text-sm font-semibold text-foreground mb-2">{t.deliveryLocation}</label>
                     <select
