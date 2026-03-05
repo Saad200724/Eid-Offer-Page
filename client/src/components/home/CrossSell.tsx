@@ -49,7 +49,7 @@ export const MOCK_PRODUCTS: Product[] = [
   { id: "p6", name: "Niqab Silhouette Tee", price: 420, image: img6, description: "Elegant and modest representation." },
   { id: "p7", name: "Sabar Vertical Tee", price: 420, image: img7, description: "Modern vertical typography design." },
   { id: "p8", name: "Salah Retro Tee", price: 420, image: img8, description: "Vintage style prayer times graphic." },
-  { id: "p9", name: "Patience Pocket Tee", price: 420, image: img9, description: "Minimalist pocket-print inspired design." },
+  { id: "p9", name: "Patience Pocket Tee", price: 1200, image: img9, description: "Minimalist pocket-print inspired design." },
   { id: "p10", name: "Luxury Warrior Tee", price: 420, image: img10, description: "High-end aesthetic meets heritage." },
   { id: "p11", name: "Hustle Everyday Tee", price: 420, image: img11, description: "Keep grinding with this premium t-shirt." },
   { id: "p12", name: "Allah is My Hope", price: 420, image: img12, description: "Spiritual connection through fashion." },
@@ -105,7 +105,7 @@ export function CrossSell({ lang, onAdd }: CrossSellProps) {
                 
                 <div className="mt-auto flex flex-col gap-1 mb-4">
                   <span className="text-xs text-muted-foreground line-through decoration-destructive/50">
-                    {product.id === "p20" ? "1500" : "500"} {lang === "bn" ? "টাকা" : "BDT"}
+                    {product.id === "p9" || product.id === "p20" ? "1500" : "500"} {lang === "bn" ? "টাকা" : "BDT"}
                   </span>
                   <span className="font-display font-bold text-primary text-lg">
                     {product.price} {lang === "bn" ? "টাকা" : "BDT"}
@@ -157,7 +157,7 @@ export function CrossSell({ lang, onAdd }: CrossSellProps) {
                   <div className="flex items-center gap-4">
                     <span className="text-3xl font-display font-bold text-primary">{selectedProduct.price} {lang === "bn" ? "টাকা" : "BDT"}</span>
                     <span className="text-xl text-muted-foreground line-through decoration-destructive/40">
-                      {selectedProduct.id === "p20" ? "1500" : "500"}
+                      {selectedProduct.id === "p9" || selectedProduct.id === "p20" ? "1500" : "500"}
                     </span>
                   </div>
                 </div>

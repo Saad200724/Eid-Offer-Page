@@ -24,5 +24,10 @@ export async function registerRoutes(
     }
   });
 
+  app.get("/api/admin/orders", async (req, res) => {
+    const orders = await storage.getOrders();
+    res.json(orders);
+  });
+
   return httpServer;
 }

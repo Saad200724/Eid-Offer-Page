@@ -22,8 +22,6 @@ interface CheckoutFormProps {
   onRemoveItem: (id: string, size?: string) => void;
 }
 
-const DELIVERY_CHARGE = 60;
-
 const content = {
   en: {
     title: "Finalize Your Order",
@@ -39,6 +37,9 @@ const content = {
     phonePlaceholder: "01XXXXXXXXX",
     address: "Full Address",
     addressPlaceholder: "House, Road, Area, City (Be specific)",
+    deliveryLocation: "Delivery Location",
+    dhakaInside: "Inside Dhaka (80 TK)",
+    dhakaOutside: "Outside Dhaka (130 TK)",
     sizeLabel: "Select Size (Flagship Product)",
     sizeSelect: "Select a size",
     submitBtn: "Confirm Order via Cash on Delivery",
@@ -66,6 +67,9 @@ const content = {
     phonePlaceholder: "০১XXXXXXXXX",
     address: "বিস্তারিত ঠিকানা",
     addressPlaceholder: "বাসা, রোড, এলাকা, শহর (বিস্তারিত লিখুন)",
+    deliveryLocation: "ডেলিভারি লোকেশন",
+    dhakaInside: "ঢাকার ভেতরে (৮০ টাকা)",
+    dhakaOutside: "ঢাকার বাইরে (১৩০ টাকা)",
     sizeLabel: "সাইজ নির্বাচন করুন (ফ্ল্যাগশিপ প্রোডাক্ট)",
     sizeSelect: "সাইজ সিলেক্ট করুন",
     submitBtn: "ক্যাশ অন ডেলিভারিতে অর্ডার নিশ্চিত করুন",
@@ -84,16 +88,19 @@ const content = {
 export function CheckoutForm({ lang, cart, heroSize, onRemoveItem }: CheckoutFormProps) {
   const t = content[lang];
   const [isSuccess, setIsSuccess] = useState(false);
+  const [deliveryLoc, setDeliveryLoc] = useState<"dhaka" | "outside">("dhaka");
   const { mutate: createOrder, isPending } = useCreateOrder();
 
+  const deliveryCharge = deliveryLoc === "dhaka" ? 80 : 130;
   const totalItems = cart.reduce((sum, item) => sum + item.price, 0);
-  const grandTotal = totalItems + DELIVERY_CHARGE;
+  const grandTotal = totalItems + deliveryCharge;
 
   const checkoutSchema = z.object({
     fullName: z.string().min(2, lang === "bn" ? "নাম আবশ্যক" : "Name is required").max(100),
     phoneNumber: z.string().min(11, lang === "bn" ? "সঠিক ফোন নম্বর দিন" : "Valid phone number is required").max(15),
     address: z.string().min(10, lang === "bn" ? "বিস্তারিত ঠিকানা দিন" : "Full detailed address is required"),
     size: z.string().min(1, lang === "bn" ? "সাইজ নির্বাচন করুন" : "Size is required"),
+    deliveryLocation: z.enum(["dhaka", "outside"]),
   });
 
   type CheckoutFormData = z.infer<typeof checkoutSchema>;
@@ -102,13 +109,20 @@ export function CheckoutForm({ lang, cart, heroSize, onRemoveItem }: CheckoutFor
     register,
     handleSubmit,
     setValue,
+    watch,
     formState: { errors },
   } = useForm<CheckoutFormData>({
     resolver: zodResolver(checkoutSchema),
     defaultValues: {
       size: heroSize,
+      deliveryLocation: "dhaka",
     },
   });
+
+  const watchedLocation = watch("deliveryLocation");
+  useEffect(() => {
+    setDeliveryLoc(watchedLocation);
+  }, [watchedLocation]);
 
   useEffect(() => {
     setValue("size", heroSize);
@@ -242,20 +256,34 @@ export function CheckoutForm({ lang, cart, heroSize, onRemoveItem }: CheckoutFor
                   {errors.address && <p className="mt-2 text-sm text-destructive">{errors.address.message}</p>}
                 </div>
 
-                <div>
-                  <label className="block text-sm font-semibold text-foreground mb-2">{t.sizeLabel}</label>
-                  <select
-                    {...register("size")}
-                    className="w-full px-5 py-4 rounded-xl bg-white border-2 border-border text-foreground focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all text-lg font-semibold appearance-none cursor-pointer"
-                    style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23013220'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`, backgroundPosition: `right 1.25rem center`, backgroundRepeat: `no-repeat`, backgroundSize: `1.5em 1.5em` }}
-                  >
-                    <option value="">{t.sizeSelect}</option>
-                    <option value="M">Medium (M)</option>
-                    <option value="L">Large (L)</option>
-                    <option value="XL">Extra Large (XL)</option>
-                    <option value="XXL">Double XL (XXL)</option>
-                  </select>
-                  {errors.size && <p className="mt-2 text-sm text-destructive">{errors.size.message}</p>}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <label className="block text-sm font-semibold text-foreground mb-2">{t.sizeLabel}</label>
+                    <select
+                      {...register("size")}
+                      className="w-full px-5 py-4 rounded-xl bg-white border-2 border-border text-foreground focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all text-lg font-semibold appearance-none cursor-pointer"
+                      style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23013220'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`, backgroundPosition: `right 1.25rem center`, backgroundRepeat: `no-repeat`, backgroundSize: `1.5em 1.5em` }}
+                    >
+                      <option value="">{t.sizeSelect}</option>
+                      <option value="M">Medium (M)</option>
+                      <option value="L">Large (L)</option>
+                      <option value="XL">Extra Large (XL)</option>
+                      <option value="XXL">Double XL (XXL)</option>
+                    </select>
+                    {errors.size && <p className="mt-2 text-sm text-destructive">{errors.size.message}</p>}
+                  </div>
+
+                  <div>
+                    <label className="block text-sm font-semibold text-foreground mb-2">{t.deliveryLocation}</label>
+                    <select
+                      {...register("deliveryLocation")}
+                      className="w-full px-5 py-4 rounded-xl bg-white border-2 border-border text-foreground focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all text-lg font-semibold appearance-none cursor-pointer"
+                      style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23013220'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`, backgroundPosition: `right 1.25rem center`, backgroundRepeat: `no-repeat`, backgroundSize: `1.5em 1.5em` }}
+                    >
+                      <option value="dhaka">{t.dhakaInside}</option>
+                      <option value="outside">{t.dhakaOutside}</option>
+                    </select>
+                  </div>
                 </div>
               </div>
 
@@ -286,14 +314,12 @@ export function CheckoutForm({ lang, cart, heroSize, onRemoveItem }: CheckoutFor
                     </div>
                     <div className="flex flex-col items-end gap-2">
                       <span className="font-bold text-foreground whitespace-nowrap">{item.price} {t.currency}</span>
-                      {!item.isFlagship && (
-                        <button 
-                          onClick={() => onRemoveItem(item.id, item.size)}
-                          className="text-xs text-muted-foreground hover:text-destructive flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity"
-                        >
-                          <X className="w-3 h-3" /> Remove
-                        </button>
-                      )}
+                      <button 
+                        onClick={() => onRemoveItem(item.id, item.size)}
+                        className="text-xs text-muted-foreground hover:text-destructive flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity"
+                      >
+                        <X className="w-3 h-3" /> Remove
+                      </button>
                     </div>
                   </div>
                 ))}
@@ -309,7 +335,7 @@ export function CheckoutForm({ lang, cart, heroSize, onRemoveItem }: CheckoutFor
                 </div>
                 <div className="flex justify-between text-muted-foreground">
                   <span>{t.delivery}</span>
-                  <span>{cart.length > 0 ? DELIVERY_CHARGE : 0} {t.currency}</span>
+                  <span>{cart.length > 0 ? deliveryCharge : 0} {t.currency}</span>
                 </div>
               </div>
 

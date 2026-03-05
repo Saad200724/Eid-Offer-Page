@@ -9,8 +9,9 @@ export const orders = pgTable("orders", {
   address: text("address").notNull(),
   size: text("size").notNull(),
   totalAmount: integer("total_amount").notNull(),
-  productId: text("product_id").notNull(), // Added to track which product was ordered
+  productId: text("product_id").notNull(),
   status: text("status").default("pending"),
+  deliveryLocation: text("delivery_location").notNull().default("dhaka"),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
