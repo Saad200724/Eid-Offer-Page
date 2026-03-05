@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { ShieldCheck, Star } from "lucide-react";
 import flagshipImg from "@assets/PRD_1_1772723128274.png";
@@ -50,15 +50,15 @@ export function Hero({ lang, selectedSize, setSelectedSize, onClaimClick }: Hero
   
   return (
     <section className="relative pt-24 pb-16 lg:pt-32 lg:pb-24 overflow-hidden">
-      {/* Hero GIF Banner at the top */}
-      <div className="w-full h-48 sm:h-64 lg:h-80 overflow-hidden mb-8 lg:mb-12">
-        <img src={heroGif} alt="Hero Banner" className="w-full h-full object-cover" />
+      {/* Hero GIF Banner at the top - Full Width */}
+      <div className="w-full overflow-hidden mb-8 lg:mb-12">
+        <img src={heroGif} alt="Hero Banner" className="w-full h-auto" />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
           
-          {/* Product Showcase - Moved ABOVE on mobile (order-1) */}
+          {/* Product Showcase */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -84,7 +84,7 @@ export function Hero({ lang, selectedSize, setSelectedSize, onClaimClick }: Hero
             </div>
           </motion.div>
 
-          {/* Product Details & Hook - order-2 on mobile */}
+          {/* Product Details & Hook */}
           <motion.div 
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}

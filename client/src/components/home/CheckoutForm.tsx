@@ -12,13 +12,14 @@ interface CartItem {
   name: string;
   price: number;
   isFlagship?: boolean;
+  size?: string;
 }
 
 interface CheckoutFormProps {
   lang: Language;
   cart: CartItem[];
   heroSize: string;
-  onRemoveItem: (id: string) => void;
+  onRemoveItem: (id: string, size?: string) => void;
 }
 
 const DELIVERY_CHARGE = 60;
@@ -148,6 +149,7 @@ export function CheckoutForm({ lang, cart, heroSize, onRemoveItem }: CheckoutFor
         address: data.address,
         size: data.size,
         totalAmount: grandTotal,
+        productId: cart.map(item => `${item.id}(${item.size})`).join(", "),
       },
       {
         onSuccess: () => {
@@ -277,16 +279,16 @@ export function CheckoutForm({ lang, cart, heroSize, onRemoveItem }: CheckoutFor
               
               <div className="space-y-4 mb-6 max-h-[40vh] overflow-y-auto pr-2 custom-scrollbar">
                 {cart.map((item) => (
-                  <div key={item.id} className="flex justify-between items-start group">
+                  <div key={`${item.id}-${item.size}`} className="flex justify-between items-start group">
                     <div className="flex-1 pr-4">
                       <p className="font-semibold text-foreground text-sm leading-snug">{item.name}</p>
-                      {item.isFlagship && <p className="text-xs text-primary font-medium mt-1">Size: {heroSize}</p>}
+                      <p className="text-xs text-primary font-medium mt-1">Size: {item.size}</p>
                     </div>
                     <div className="flex flex-col items-end gap-2">
                       <span className="font-bold text-foreground whitespace-nowrap">{item.price} {t.currency}</span>
                       {!item.isFlagship && (
                         <button 
-                          onClick={() => onRemoveItem(item.id)}
+                          onClick={() => onRemoveItem(item.id, item.size)}
                           className="text-xs text-muted-foreground hover:text-destructive flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity"
                         >
                           <X className="w-3 h-3" /> Remove
