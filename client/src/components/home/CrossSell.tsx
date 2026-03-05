@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Plus } from "lucide-react";
+import { Language } from "@/pages/Home";
 
 interface Product {
   id: string;
@@ -9,26 +10,31 @@ interface Product {
 }
 
 interface CrossSellProps {
+  lang: Language;
   onAdd: (product: Product) => void;
 }
 
-// Generate 20 mock products
-const MOCK_PRODUCTS = Array.from({ length: 20 }, (_, i) => ({
-  id: `cs-${i + 1}`,
-  name: i % 2 === 0 ? "Classic Oversized Tee" : "Drop Shoulder Premium",
-  price: 420,
-}));
+export function CrossSell({ lang, onAdd }: CrossSellProps) {
+  // Generate 20 mock products
+  const MOCK_PRODUCTS = Array.from({ length: 20 }, (_, i) => ({
+    id: `cs-${i + 1}`,
+    name: lang === "bn" 
+      ? (i % 2 === 0 ? "ক্লাসিক ওভারসাইজড টি" : "ড্রপ শোল্ডার প্রিমিয়াম")
+      : (i % 2 === 0 ? "Classic Oversized Tee" : "Drop Shoulder Premium"),
+    price: 420,
+  }));
 
-export function CrossSell({ onAdd }: CrossSellProps) {
   return (
     <section className="py-20 bg-background">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-display font-bold text-foreground mb-4">
-            More Premium Picks for Eid
+            {lang === "bn" ? "ঈদের জন্য আরও প্রিমিয়াম সংগ্রহ" : "More Premium Picks for Eid"}
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Add these to your order to complete your festive wardrobe. Exclusive discounts applied.
+            {lang === "bn" 
+              ? "আপনার উৎসবের পোশাক পূর্ণ করতে এগুলো অর্ডারে যোগ করুন। বিশেষ ছাড় প্রযোজ্য।"
+              : "Add these to your order to complete your festive wardrobe. Exclusive discounts applied."}
           </p>
         </div>
 
@@ -43,14 +49,11 @@ export function CrossSell({ onAdd }: CrossSellProps) {
               whileHover={{ scale: 1.02, y: -4 }}
               className="bg-white rounded-2xl p-3 sm:p-4 border border-border/60 shadow-sm hover:shadow-xl hover:border-primary/20 transition-all duration-300 flex flex-col group"
             >
-              {/* Minimalist Image Area */}
               <div className="aspect-[4/5] bg-muted/30 rounded-xl mb-4 relative overflow-hidden flex items-center justify-center">
                 <div className="w-16 h-16 rounded-full bg-white/50 blur-xl absolute" />
                 <span className="text-muted-foreground/30 font-display font-bold text-xl rotate-[-45deg] select-none">
-                  PREMIUM
+                  {lang === "bn" ? "প্রিমিয়াম" : "PREMIUM"}
                 </span>
-                
-                {/* Overlay Add button that appears on hover for desktop */}
                 <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none" />
               </div>
 
@@ -61,10 +64,10 @@ export function CrossSell({ onAdd }: CrossSellProps) {
                 
                 <div className="mt-auto flex flex-col gap-1 mb-4">
                   <span className="text-xs text-muted-foreground line-through decoration-destructive/50">
-                    ~500 BDT~
+                    ~500 {lang === "bn" ? "টাকা" : "BDT"}~
                   </span>
                   <span className="font-display font-bold text-primary text-lg">
-                    {product.price} BDT
+                    {product.price} {lang === "bn" ? "টাকা" : "BDT"}
                   </span>
                 </div>
 
@@ -73,7 +76,7 @@ export function CrossSell({ onAdd }: CrossSellProps) {
                   className="w-full py-2.5 rounded-xl border-2 border-primary text-primary font-medium text-sm flex items-center justify-center gap-2 hover:bg-primary hover:text-white transition-colors active:scale-95"
                 >
                   <Plus className="w-4 h-4" />
-                  <span>Add to Order</span>
+                  <span>{lang === "bn" ? "অর্ডারে যোগ করুন" : "Add to Order"}</span>
                 </button>
               </div>
             </motion.div>

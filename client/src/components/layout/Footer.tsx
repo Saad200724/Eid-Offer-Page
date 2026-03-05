@@ -1,7 +1,12 @@
 import React from "react";
 import logoImg from "@assets/Triqz_1772723120584.png";
+import { Language } from "@/pages/Home";
 
-export function Footer() {
+interface FooterProps {
+  lang: Language;
+}
+
+export function Footer({ lang }: FooterProps) {
   return (
     <footer className="bg-[#0a1a14] text-white pt-16 pb-24 md:pb-8 relative overflow-hidden">
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent" />
@@ -18,19 +23,26 @@ export function Footer() {
           </div>
           
           <nav className="flex flex-wrap justify-center gap-6 text-sm font-medium text-white/70">
-            <a href="#" className="hover:text-white transition-colors">Terms & Conditions</a>
-            <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="hover:text-white transition-colors">Contact Support</a>
-            <a href="#" className="hover:text-white transition-colors">Return Policy</a>
+            <a href="#" className="hover:text-white transition-colors">
+              {lang === "bn" ? "শর্তাবলী" : "Terms & Conditions"}
+            </a>
+            <a href="#" className="hover:text-white transition-colors">
+              {lang === "bn" ? "গোপনীয়তা নীতি" : "Privacy Policy"}
+            </a>
+            <a href="#" className="hover:text-white transition-colors">
+              {lang === "bn" ? "যোগাযোগ" : "Contact Support"}
+            </a>
+            <a href="#" className="hover:text-white transition-colors">
+              {lang === "bn" ? "রিটার্ন পলিসি" : "Return Policy"}
+            </a>
           </nav>
         </div>
 
         <div className="border-t border-white/10 pt-8 flex flex-col items-center text-center">
           <p className="text-white/50 text-sm mb-6">
-            &copy; {new Date().getFullYear()} TRIQZ. All rights reserved.
+            &copy; {new Date().getFullYear()} TRIQZ. {lang === "bn" ? "সর্বস্বত্ব সংরক্ষিত।" : "All rights reserved."}
           </p>
           
-          {/* Tech Badge */}
           <a 
             href="https://znforge.dev" 
             target="_blank" 
@@ -38,7 +50,7 @@ export function Footer() {
             className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-black/40 border border-white/10 hover:border-secondary/50 hover:bg-black/60 transition-all group"
           >
             <span className="text-xs text-white/60 tracking-wider uppercase font-medium group-hover:text-white/80 transition-colors">
-              Verified and Powered by
+              {lang === "bn" ? "যাচাইকৃত এবং পাওয়ার্ড বাই" : "Verified and Powered by"}
             </span>
             <span className="font-display font-bold text-[hsl(var(--secondary))] gold-glow tracking-wide text-sm">
               ZnForge

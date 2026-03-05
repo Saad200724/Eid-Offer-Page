@@ -1,8 +1,14 @@
 import React from "react";
 import { motion } from "framer-motion";
 import logoImg from "@assets/Triqz_1772723120584.png";
+import { Language } from "@/pages/Home";
 
-export function Navbar() {
+interface NavbarProps {
+  lang: Language;
+  setLang: (lang: Language) => void;
+}
+
+export function Navbar({ lang, setLang }: NavbarProps) {
   return (
     <motion.header 
       initial={{ y: -100 }}
@@ -20,10 +26,19 @@ export function Navbar() {
           </span>
         </div>
         
-        <div className="hidden md:flex items-center">
-          <p className="text-sm font-medium text-muted-foreground bg-muted/50 px-4 py-1.5 rounded-full border border-primary/10">
-            Eid-ul-Fitr Exclusive
-          </p>
+        <div className="flex items-center gap-4">
+          <div className="hidden sm:flex items-center">
+            <p className="text-sm font-medium text-muted-foreground bg-muted/50 px-4 py-1.5 rounded-full border border-primary/10">
+              {lang === "bn" ? "ঈদুল ফিতর এক্সক্লুসিভ" : "Eid-ul-Fitr Exclusive"}
+            </p>
+          </div>
+          
+          <button 
+            onClick={() => setLang(lang === "bn" ? "en" : "bn")}
+            className="px-3 py-1 rounded-lg bg-primary/10 text-primary font-bold text-sm border border-primary/20 hover:bg-primary/20 transition-colors"
+          >
+            {lang === "bn" ? "EN" : "বাংলা"}
+          </button>
         </div>
       </div>
     </motion.header>
