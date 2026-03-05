@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { Loader2, CheckCircle2, Shield, MapPin, Phone, User, X } from "lucide-react";
+import { Loader2, CheckCircle2, Shield, MapPin, Phone, User, X, Info } from "lucide-react";
 import confetti from "canvas-confetti";
 import { useCreateOrder } from "@/hooks/use-orders";
 import { Language } from "@/pages/Home";
@@ -40,6 +40,7 @@ const content = {
     deliveryLocation: "Delivery Location",
     dhakaInside: "Inside Dhaka (80 TK)",
     dhakaOutside: "Outside Dhaka (130 TK)",
+    deliveryNotice: "Delivery charge can vary under Steadfast location regulation.",
     sizeLabel: "Select Size (Flagship Product)",
     sizeSelect: "Select a size",
     submitBtn: "Confirm Order via Cash on Delivery",
@@ -70,6 +71,7 @@ const content = {
     deliveryLocation: "ডেলিভারি লোকেশন",
     dhakaInside: "ঢাকার ভেতরে (৮০ টাকা)",
     dhakaOutside: "ঢাকার বাইরে (১৩০ টাকা)",
+    deliveryNotice: "স্টেডফাস্ট লোকেশন রেগুলেশন অনুযায়ী ডেলিভারি চার্জ পরিবর্তিত হতে পারে।",
     sizeLabel: "সাইজ নির্বাচন করুন (ফ্ল্যাগশিপ প্রোডাক্ট)",
     sizeSelect: "সাইজ সিলেক্ট করুন",
     submitBtn: "ক্যাশ অন ডেলিভারিতে অর্ডার নিশ্চিত করুন",
@@ -284,6 +286,11 @@ export function CheckoutForm({ lang, cart, heroSize, onRemoveItem }: CheckoutFor
                       <option value="outside">{t.dhakaOutside}</option>
                     </select>
                   </div>
+                </div>
+
+                <div className="flex items-start gap-3 p-4 bg-primary/5 rounded-2xl border border-primary/10">
+                  <Info className="w-5 h-5 text-primary mt-0.5" />
+                  <p className="text-sm text-foreground/80 font-medium">{t.deliveryNotice}</p>
                 </div>
               </div>
 

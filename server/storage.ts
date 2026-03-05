@@ -2,11 +2,13 @@ import { db } from "./db";
 import {
   orders,
   type CreateOrderRequest,
-  type OrderResponse
+  type OrderResponse,
+  type Order
 } from "@shared/schema";
 
 export interface IStorage {
   createOrder(order: CreateOrderRequest): Promise<OrderResponse>;
+  getOrders(): Promise<Order[]>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -15,6 +17,10 @@ export class DatabaseStorage implements IStorage {
       .values(order)
       .returning();
     return created;
+  }
+
+  async getOrders(): Promise<Order[]> {
+    return await db.select().from(orders).orderBy(orders.createdAt);
   }
 }
 

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Helmet } from "react-helmet-async";
 import { Navbar } from "@/components/layout/Navbar";
 import { Hero } from "@/components/home/Hero";
 import { TrustBanner } from "@/components/home/TrustBanner";
@@ -77,8 +78,24 @@ export default function Home() {
     setCart(prev => prev.filter(item => !(item.id === id && item.size === size)));
   };
 
+  const seoTitle = lang === "bn" 
+    ? "পিস ট্রি প্রিমিয়াম টি-শার্ট - ঈদ কালেকশন | TRIQZ"
+    : "Peace Tree Premium T-Shirt - Eid Collection | TRIQZ";
+  
+  const seoDescription = lang === "bn"
+    ? "পিস ট্রি প্রিমিয়াম টি-শার্টের সাথে আপনার ঈদ উদযাপন করুন। সর্বোচ্চ আরাম এবং চমৎকার স্টাইল। এখনই অর্ডার করুন!"
+    : "Elevate your Eid with the Peace Tree Premium T-Shirt. Crafted for supreme comfort and effortless style. Order now!";
+
   return (
     <div className="min-h-screen bg-background">
+      <Helmet>
+        <title>{seoTitle}</title>
+        <meta name="description" content={seoDescription} />
+        <meta property="og:title" content={seoTitle} />
+        <meta property="og:description" content={seoDescription} />
+        <meta property="og:type" content="website" />
+      </Helmet>
+
       <Navbar lang={lang} setLang={setLang} />
       
       <main>
