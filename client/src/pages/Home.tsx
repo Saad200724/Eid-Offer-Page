@@ -5,6 +5,7 @@ import { Hero } from "@/components/home/Hero";
 import { TrustBanner } from "@/components/home/TrustBanner";
 import { CrossSell, Product } from "@/components/home/CrossSell";
 import { CheckoutForm } from "@/components/home/CheckoutForm";
+import { ContactSection } from "@/components/home/ContactSection";
 import { Footer } from "@/components/layout/Footer";
 import { useToast } from "@/hooks/use-toast";
 
@@ -113,6 +114,8 @@ export default function Home({ lang, setLang }: HomeProps) {
         <TrustBanner lang={lang} />
         
         <CrossSell lang={lang} onAdd={handleAddCrossSell} />
+        
+        <ContactSection lang={lang} />
         
         <CheckoutForm 
           lang={lang}

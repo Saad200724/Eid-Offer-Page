@@ -6,9 +6,9 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import NotFound from "@/pages/not-found";
 import Home from "./pages/Home";
 import OrdersPage from "./pages/OrdersPage";
-import TermsPage from "./pages/legal/Terms";
-import PrivacyPage from "./pages/legal/Privacy";
-import ContactPage from "./pages/legal/Contact";
+import TermsPage from "./pages/TermsPage";
+import PrivacyPage from "./pages/PrivacyPage";
+import ContactPage from "./pages/ContactPage";
 import { useState } from "react";
 import { Language } from "./pages/Home";
 
