@@ -34,6 +34,33 @@ export async function registerRoutes(
     }
   });
 
+  app.patch("/api/admin/orders/:id/status", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const { status } = req.body;
+      if (!status) return res.status(400).json({ message: "Status is required" });
+      
+      const updated = await storage.updateOrderStatus(id, status);
+      if (!updated) return res.status(404).json({ message: "Order not found" });
+      
+      res.json(updated);
+    } catch (err) {
+      console.error("Error updating order status:", err);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  app.delete("/api/admin/orders/:id", async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      await storage.deleteOrder(id);
+      res.status(204).end();
+    } catch (err) {
+      console.error("Error deleting order:", err);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
   app.get("/api/orders", async (req, res) => {
     try {
       const orders = await storage.getOrders();

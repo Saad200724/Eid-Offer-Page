@@ -1,5 +1,5 @@
 import { db } from "./db";
-import { desc, sql } from "drizzle-orm";
+import { desc, eq, sql } from "drizzle-orm";
 import {
   orders,
   type CreateOrderRequest,
@@ -10,6 +10,7 @@ import {
 export interface IStorage {
   createOrder(order: CreateOrderRequest): Promise<OrderResponse>;
   getOrders(): Promise<Order[]>;
+  deleteOrder(id: number): Promise<boolean>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -38,6 +39,19 @@ export class DatabaseStorage implements IStorage {
 
   async getOrders(): Promise<Order[]> {
     return await db.select().from(orders).orderBy(desc(orders.id));
+  }
+
+  async updateOrderStatus(id: number, status: string): Promise<Order | undefined> {
+    const [updated] = await db.update(orders)
+      .set({ status })
+      .where(eq(orders.id, id))
+      .returning();
+    return updated;
+  }
+
+  async deleteOrder(id: number): Promise<boolean> {
+    const result = await db.delete(orders).where(eq(orders.id, id));
+    return true;
   }
 }
 
