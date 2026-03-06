@@ -1,9 +1,10 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { api, type OrderInput, type OrderResponse, type ValidationError } from "@shared/routes";
 import { useToast } from "@/hooks/use-toast";
 
 export function useCreateOrder() {
   const { toast } = useToast();
+  const queryClient = useQueryClient();
 
   return useMutation<OrderResponse, Error, OrderInput>({
     mutationFn: async (data: OrderInput) => {
@@ -17,7 +18,6 @@ export function useCreateOrder() {
         method: api.orders.create.method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
-        credentials: "include",
       });
 
       if (!res.ok) {
@@ -29,6 +29,14 @@ export function useCreateOrder() {
       }
 
       return await res.json() as OrderResponse;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["/api/admin/orders"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/orders"] });
+      toast({
+        title: "Order Placed",
+        description: "Your order has been placed successfully!",
+      });
     },
     onError: (error) => {
       toast({

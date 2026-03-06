@@ -166,6 +166,7 @@ export function CheckoutForm({ lang, cart, heroSize, onRemoveItem }: CheckoutFor
         size: data.size,
         totalAmount: grandTotal,
         productId: cart.map(item => `${item.name}(${item.size})`).join(", "),
+        status: "pending",
       },
       {
         onSuccess: () => {

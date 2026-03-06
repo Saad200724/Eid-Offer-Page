@@ -1,4 +1,5 @@
 import { db } from "./db";
+import { desc, sql } from "drizzle-orm";
 import {
   orders,
   type CreateOrderRequest,
@@ -14,8 +15,24 @@ export interface IStorage {
 export class DatabaseStorage implements IStorage {
   async createOrder(order: CreateOrderRequest): Promise<OrderResponse> {
     const [created] = await db.insert(orders)
-      .values(order)
+      .values({
+        fullName: order.fullName,
+        phoneNumber: order.phoneNumber,
+        address: order.address,
+        size: order.size,
+        totalAmount: order.totalAmount,
+        productId: order.productId,
+        deliveryLocation: order.deliveryLocation || "dhaka",
+        status: order.status || "pending",
+        createdAt: new Date(),
+      })
       .returning();
+    
+    if (!created) {
+      throw new Error("Failed to create order in database");
+    }
+    
+    console.log("Order created successfully:", created.id);
     return created;
   }
 

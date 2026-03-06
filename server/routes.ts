@@ -25,8 +25,22 @@ export async function registerRoutes(
   });
 
   app.get("/api/admin/orders", async (req, res) => {
-    const orders = await storage.getOrders();
-    res.json(orders);
+    try {
+      const orders = await storage.getOrders();
+      res.json(orders);
+    } catch (err) {
+      console.error("Error fetching orders:", err);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  app.get("/api/orders", async (req, res) => {
+    try {
+      const orders = await storage.getOrders();
+      res.json(orders);
+    } catch (err) {
+      res.status(500).json({ message: "Internal server error" });
+    }
   });
 
   return httpServer;

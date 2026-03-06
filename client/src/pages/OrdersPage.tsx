@@ -10,7 +10,7 @@ export default function OrdersPage() {
   const [password, setPassword] = useState("");
   const [isAuthorized, setIsAuthorized] = useState(false);
 
-  const { data: orders, isLoading } = useQuery<Order[]>({
+  const { data: orders, isLoading, refetch } = useQuery<Order[]>({
     queryKey: ["/api/admin/orders"],
     enabled: isAuthorized,
   });
@@ -55,7 +55,10 @@ export default function OrdersPage() {
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-display font-bold">Orders Management</h1>
-          <Button onClick={() => setIsAuthorized(false)} variant="outline">Logout</Button>
+          <div className="flex gap-4">
+            <Button onClick={() => refetch()} variant="outline">Refresh</Button>
+            <Button onClick={() => setIsAuthorized(false)} variant="outline">Logout</Button>
+          </div>
         </div>
 
         <Card>

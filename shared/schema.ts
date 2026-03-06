@@ -16,10 +16,11 @@ export const orders = sqliteTable("orders", {
   createdAt: integer("created_at", { mode: "timestamp" }).default(sql`(strftime('%s', 'now') * 1000)`),
 });
 
-export const insertOrderSchema = createInsertSchema(orders).omit({ 
+export const insertOrderSchema = createInsertSchema(orders).extend({
+  status: z.string().optional(),
+}).omit({ 
   id: true, 
   createdAt: true,
-  status: true 
 });
 
 export type Order = typeof orders.$inferSelect;
