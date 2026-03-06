@@ -3,6 +3,7 @@ import { Helmet } from "react-helmet-async";
 import { Navbar } from "@/components/layout/Navbar";
 import { Hero } from "@/components/home/Hero";
 import { TrustBanner } from "@/components/home/TrustBanner";
+import { VideoBanner } from "@/components/home/VideoBanner";
 import { CrossSell, Product } from "@/components/home/CrossSell";
 import { CheckoutForm } from "@/components/home/CheckoutForm";
 import { ContactSection } from "@/components/home/ContactSection";
@@ -126,6 +127,8 @@ export default function Home({ lang, setLang }: HomeProps) {
         />
         
         <TrustBanner lang={lang} />
+        
+        <VideoBanner lang={lang} />
         
         <CrossSell lang={lang} onAdd={handleAddCrossSell} />
         
