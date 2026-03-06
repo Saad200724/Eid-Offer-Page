@@ -1,5 +1,5 @@
 import React from "react";
-import videoSrc from "@assets/Animated_Video_Chinese_to_English_Translation_1772774154060.mp4";
+import videoSrc from "/Animated_Video_Chinese_to_English_Translation_1772774154060.mp4";
 
 interface VideoBannerProps {
   lang: "bn" | "en";
@@ -16,17 +16,19 @@ export const VideoBanner: React.FC<VideoBannerProps> = ({ lang }) => {
             </p>
           </div>
           
-          <div className="relative mx-auto max-w-4xl aspect-video rounded-xl overflow-hidden shadow-2xl border-4 border-primary/10">
+          <div className="relative mx-auto max-w-4xl aspect-video rounded-xl overflow-hidden shadow-2xl border-4 border-primary/10 bg-muted">
             <video 
               src={videoSrc} 
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain"
               controls
-              muted
               autoPlay
+              muted
               loop
               playsInline
               data-testid="video-product-demo"
-            />
+            >
+              Your browser does not support the video tag.
+            </video>
           </div>
         </div>
       </div>
