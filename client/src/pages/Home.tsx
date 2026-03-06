@@ -91,19 +91,28 @@ export default function Home({ lang, setLang }: HomeProps) {
     ? "পিস ট্রি প্রিমিয়াম টি-শার্টের সাথে আপনার ঈদ উদযাপন করুন। সর্বোচ্চ আরাম এবং চমৎকার স্টাইল। এখনই অর্ডার করুন!"
     : "Elevate your Eid with the Peace Tree Premium T-Shirt. Crafted for supreme comfort and effortless style. Order now!";
 
+  const canonicalUrl = "https://triqz.znforge.dev";
+  const ogImageUrl = `${canonicalUrl}/og-image.jpg`;
+
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
         <title>{seoTitle}</title>
         <meta name="description" content={seoDescription} />
+        <meta name="keywords" content="T-shirt, Eid Collection, Premium Quality, Fashion, Bangladesh, TRIQZ, RIZQAR" />
         <meta property="og:title" content={seoTitle} />
         <meta property="og:description" content={seoDescription} />
         <meta property="og:type" content="website" />
-        <meta property="og:image" content={`${window.location.origin}/og-image.jpg`} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:image" content={ogImageUrl} />
+        <meta property="og:image:secure_url" content={ogImageUrl} />
+        <meta property="og:image:type" content="image/jpeg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:image" content={`${window.location.origin}/og-image.jpg`} />
+        <meta name="twitter:title" content={seoTitle} />
+        <meta name="twitter:description" content={seoDescription} />
+        <meta name="twitter:image" content={ogImageUrl} />
       </Helmet>
 
       <Navbar lang={lang} setLang={setLang} />
