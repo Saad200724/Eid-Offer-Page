@@ -128,9 +128,9 @@ export default function Home({ lang, setLang }: HomeProps) {
         
         <TrustBanner lang={lang} />
         
-        <VideoBanner lang={lang} />
-        
         <CrossSell lang={lang} onAdd={handleAddCrossSell} />
+        
+        <VideoBanner lang={lang} />
         
         <ContactSection lang={lang} />
         

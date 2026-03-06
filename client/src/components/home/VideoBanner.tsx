@@ -11,15 +11,12 @@ export const VideoBanner: React.FC<VideoBannerProps> = ({ lang }) => {
       <div className="container mx-auto px-4">
         <div className="max-w-4xl mx-auto">
           <div className="text-center mb-6">
-            <h2 className="text-2xl md:text-3xl font-bold text-primary mb-2">
-              100% Secure Cash on Delivery
-            </h2>
             <p className="text-xl md:text-2xl font-medium text-foreground">
               {lang === "bn" ? "কেনার আগে অর্থ বুঝে নিন" : "Know the meaning before you buy"}
             </p>
           </div>
           
-          <div className="relative mx-auto max-w-[300px] aspect-[9/16] rounded-xl overflow-hidden shadow-2xl border-4 border-primary/10">
+          <div className="relative mx-auto max-w-4xl aspect-video rounded-xl overflow-hidden shadow-2xl border-4 border-primary/10">
             <video 
               src={videoSrc} 
               className="w-full h-full object-cover"
