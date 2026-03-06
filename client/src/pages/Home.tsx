@@ -99,6 +99,11 @@ export default function Home({ lang, setLang }: HomeProps) {
         <meta property="og:title" content={seoTitle} />
         <meta property="og:description" content={seoDescription} />
         <meta property="og:type" content="website" />
+        <meta property="og:image" content={`${window.location.origin}/og-image.jpg`} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content={`${window.location.origin}/og-image.jpg`} />
       </Helmet>
 
       <Navbar lang={lang} setLang={setLang} />
